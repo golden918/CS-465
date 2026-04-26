@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TripCard } from '../trip-card/trip-card';
 
@@ -13,17 +13,17 @@ import { Router } from '@angular/router';
   imports: [CommonModule, TripCard],
   templateUrl: './trip-listing.html',
   styleUrl: './trip-listing.css',
-  providers: [TripData]
 })
 
 export class TripListing implements OnInit {
 
-  trips!: Trip[];
+  trips: Trip[] = [];
   message: string = '';
 
   constructor(
     private tripData: TripData,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {
     console.log('TripListing.constructor');
   }
@@ -37,19 +37,13 @@ export class TripListing implements OnInit {
       .subscribe({
         next: (value: any) => {
           this.trips = value;
-          if(value.length > 0)
-          {
-            this.message = 'There are ' + value.length + ' trips';
-          }
-          else{
-            this.message = 'There were no trips retrieved from the database';
-          }
-          console.log(this.message);
+          this.cdr.detectChanges();
+          console.log('Trips set to:', this.trips.length);
         },
         error: (error: any) => {
           console.log('Error: ' + error);
         }
-      })
+      });
   }
 
   ngOnInit(): void {

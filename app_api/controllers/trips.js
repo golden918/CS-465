@@ -52,22 +52,18 @@ const tripsAddTrip = async (req, res) => {
     });
     const q = await newTrip.save();
     
-        if(!q) {
-
-            if(!q)
-            {
-                return res
-                    .status(400)
-                    .json(err);
-            } else {
-                return res
-                    .status(201)
-                    .json(q);
-            }
+    if(!q) {
+        return res
+            .status(400)
+            .json(err);
+    } else {
+        return res
+            .status(201)
+            .json(q);
+    }
 };
 // PUT: /trips/:tripCode - Adds a new Trip 
-// Regardless of outcome, response must include HTML status 
-code 
+// Regardless of outcome, response must include HTML status code
 // and JSON message to the requesting client 
 const tripsUpdateTrip = async(req, res) => { 
  

@@ -13,8 +13,8 @@ import { TripData } from '../services/trip-data';
   styleUrl: './add-trip.css',
 })
 
-export class AddTrip implaments OnInit {
-  addForm!: FormGroup;
+export class AddTrip implements OnInit {
+  public addForm!: FormGroup;
   submitted = false;
 
   constructor(
